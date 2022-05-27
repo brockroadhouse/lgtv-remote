@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<link rel="shortcut icon" href="#">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
+		<title>LG TV App</title>
+
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="main is-flex is-flex-direction-column">
+				<div class="is-flex is-justify-content-space-around">
+					{%for i, source in sources%}
+					<div class="x">
+						<a class="button is-dark" href="/hdmi/{{i}}">{{source}}</a>
+					</div>
+					{%endfor%}
+				</div>
+				<div class="is-flex is-flex-grow-1 is-justify-content-center is-align-items-center">
+					<div class="home">
+						<a class="button is-dark is-rounded is-large" href="/home">
+							<span class="icon is-large">
+								<img src="{{ url_for('static', filename='icons/home.svg') }}" />
+							</span>
+						</a>
+					</div>
+					<div class="back">
+						<a class="button is-dark is-rounded is-large" href="/back">
+							<span class="icon is-large">
+								<img src="{{ url_for('static', filename='icons/back.svg') }}" />
+							</span>
+						</a>
+					</div>
+					<div class="settings">
+						<a class="button is-dark is-rounded is-large" href="/settings">
+							<span class="icon is-large">
+								<img src="{{ url_for('static', filename='icons/settings.svg') }}" />
+							</span>
+						</a>
+					</div>
+					<div class="guide">
+						<a class="button is-dark is-rounded is-large" href="/guide">
+							<span class="icon is-large">
+								<img src="{{ url_for('static', filename='icons/guide.svg') }}" />
+							</span>
+						</a>
+					</div>
+					<div class="main-circle p-2">
+						<a class="button is-dark quarter q-left" href="/button/up">
+							<span class="icon is-large">
+								<img src="{{ url_for('static', filename='icons/chevron-left.svg') }}" />
+							</span>
+						</a>
+						<a class="button is-dark quarter q-up" href="/button/up">
+							<span class="icon is-large">
+								<img src="{{ url_for('static', filename='icons/chevron-up.svg') }}" />
+							</span>
+						</a>
+						<a class="button is-dark quarter q-right" href="/button/up">
+							<span class="icon is-large">
+								<img src="{{ url_for('static', filename='icons/chevron-right.svg') }}" />
+							</span>
+						</a>
+						<a class="button is-dark quarter q-down" href="/button/up">
+							<span class="icon is-large">
+								<img src="{{ url_for('static', filename='icons/chevron-down.svg') }}" />
+							</span>
+						</a>
+						<a class="button is-black circle-center">
+							OK
+						</a>
+						<!-- < -->
+					</div>
+				</div>
+				<!-- <div class="is-flex">
+					<div class="column has-text-centered">
+						<a class="button is-link" href="/auth">
+							Auth
+						</a>
+					</div>
+				</div> -->
+				<div class="is-flex is-align-content-center">
+					<div class="column mute-button">
+						<p class="control">
+							<a class="button is-dark is-large is-rounded" href="/mute">
+								<span class="icon is-large">
+									<img src="{{ url_for('static', filename='icons/volume-mute.svg') }}" />
+								</span>
+							</a>
+						</p>
+					</div>
+					<div class="column volume-buttons">
+						<div class="tabs is-toggle is-toggle-rounded is-fullwidth">
+							<ul>
+								<li class="no-outline">
+									<a class="button is-dark is-large is" href="/volDown">
+										<span class="icon is-large">
+											<img src="{{ url_for('static', filename='icons/volume-low.svg') }}" />
+										</span>
+									</a>
+								</li>
+								<li class="no-outline">
+									<a class="button is-dark is-large" href="/volUp">
+										<span class="icon is-large">
+											<img src="{{ url_for('static', filename='icons/volume-high.svg') }}" />
+										</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		const links = document.querySelectorAll('a');
+
+		links.forEach(el => el.addEventListener('click', json_link, false));
+
+		function json_link(e) {
+			e.preventDefault();
+			const options = {
+				method: 'GET',
+			}
+
+			fetch(this.href, options)
+				.then(res => res.json())
+				.then(res => console.log(res));
+			return false;
+		};
+	</script>
+
+</html>
