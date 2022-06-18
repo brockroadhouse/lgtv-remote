@@ -7,7 +7,7 @@ body {
   
   .container {
     min-height: 100vh;
-    max-width: 600px !important;
+    max-width: 480px !important;
     background-color: #0a0a0a;
     /* flex-grow: 0; */
     /* border-radius: 20px; */
@@ -72,8 +72,8 @@ body {
   Center Circle
   ***/
   .main-circle {
-    width: 340px;
-    height: 340px;
+    width: 260px;
+    height: 260px;
     position: relative;
     rotate: 45deg;
 
@@ -123,26 +123,26 @@ body {
   
     .home {
       position: absolute;
-      left: 50px;
+      left: 20px;
       top: 120px;
     }
 
     .back {
       position: absolute;
-      left: 50px;
-      top: 460px;
+      left: 20px;
+      top: 420px;
     }
 
     .settings {
       position: absolute;
-      right: 50px;
+      right: 20px;
       top: 120px;
     }
 
     .guide {
       position: absolute;
-      right: 50px;
-      top: 460px;
+      right: 20px;
+      top: 420px;
     }
 
   /* 

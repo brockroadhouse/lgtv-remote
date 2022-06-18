@@ -16,11 +16,11 @@
 		<div class="container">
 			<div class="main is-flex is-flex-direction-column">
 				<div class="is-flex is-justify-content-space-around">
-					{%for i, source in sources%}
-					<div class="x">
-						<a class="button is-dark" href="/hdmi/{{i}}">{{source}}</a>
+					<div class="buttons">
+						{%for i, source in sources%}
+							<a class="button is-dark" href="/hdmi/{{i}}">{{source}}</a>
+						{%endfor%}
 					</div>
-					{%endfor%}
 				</div>
 				<div class="is-flex is-flex-grow-1 is-justify-content-center is-align-items-center">
 					<div class="home">
@@ -52,7 +52,7 @@
 						</a>
 					</div>
 					<div class="main-circle p-2">
-						<a class="button is-dark quarter q-left" href="/button/up">
+						<a class="button is-dark quarter q-left" href="/button/left">
 							<span class="icon is-large">
 								<img src="{{ url_for('static', filename='icons/chevron-left.svg') }}" />
 							</span>
@@ -62,17 +62,17 @@
 								<img src="{{ url_for('static', filename='icons/chevron-up.svg') }}" />
 							</span>
 						</a>
-						<a class="button is-dark quarter q-right" href="/button/up">
+						<a class="button is-dark quarter q-right" href="/button/right">
 							<span class="icon is-large">
 								<img src="{{ url_for('static', filename='icons/chevron-right.svg') }}" />
 							</span>
 						</a>
-						<a class="button is-dark quarter q-down" href="/button/up">
+						<a class="button is-dark quarter q-down" href="/button/down">
 							<span class="icon is-large">
 								<img src="{{ url_for('static', filename='icons/chevron-down.svg') }}" />
 							</span>
 						</a>
-						<a class="button is-black circle-center">
+						<a class="button is-black circle-center" href="/button/ok">
 							OK
 						</a>
 						<!-- < -->
@@ -95,7 +95,7 @@
 							</a>
 						</p>
 					</div>
-					<div class="column volume-buttons">
+					<div class="column volume-buttons ml-4">
 						<div class="tabs is-toggle is-toggle-rounded is-fullwidth">
 							<ul>
 								<li class="no-outline">
