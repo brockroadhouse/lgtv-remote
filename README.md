@@ -23,3 +23,6 @@ pip install -r requirements.txt
 ```
 
 Then navigate to the [ip]:5000, accept the confirmation on the screen, and you're on your way!
+
+![image](https://user-images.githubusercontent.com/4275501/174460751-4852f111-17e9-4dde-a1a0-83c334e71428.png)
+
