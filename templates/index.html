@@ -1,141 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<link rel="shortcut icon" href="#">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta charset="utf-8">
-		<title>LG TV App</title>
+<head>
+    <link rel="shortcut icon" href="#">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>LG TV App</title>
 
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    <script src="https://kit.fontawesome.com/a2f2d0d009.js" crossorigin="anonymous"></script>
 
-	</head>
+</head>
 
-	<body>
-		<div class="container">
-			<div class="main is-flex is-flex-direction-column">
-				<div class="is-flex is-justify-content-space-around">
-					<div class="buttons">
-						{%for i, source in sources%}
-							<a class="button is-dark" href="/hdmi/{{i}}">{{source}}</a>
-						{%endfor%}
-					</div>
-				</div>
-				<div class="is-flex is-flex-grow-1 is-justify-content-center is-align-items-center">
-					<div class="home">
-						<a class="button is-dark is-rounded is-large" href="/home">
-							<span class="icon is-large">
-								<img src="{{ url_for('static', filename='icons/home.svg') }}" />
-							</span>
-						</a>
-					</div>
-					<div class="back">
-						<a class="button is-dark is-rounded is-large" href="/back">
-							<span class="icon is-large">
-								<img src="{{ url_for('static', filename='icons/back.svg') }}" />
-							</span>
-						</a>
-					</div>
-					<div class="settings">
-						<a class="button is-dark is-rounded is-large" href="/settings">
-							<span class="icon is-large">
-								<img src="{{ url_for('static', filename='icons/settings.svg') }}" />
-							</span>
-						</a>
-					</div>
-					<div class="guide">
-						<a class="button is-dark is-rounded is-large" href="/guide">
-							<span class="icon is-large">
-								<img src="{{ url_for('static', filename='icons/guide.svg') }}" />
-							</span>
-						</a>
-					</div>
-					<div class="main-circle p-2">
-						<a class="button is-dark quarter q-left" href="/button/left">
-							<span class="icon is-large">
-								<img src="{{ url_for('static', filename='icons/chevron-left.svg') }}" />
-							</span>
-						</a>
-						<a class="button is-dark quarter q-up" href="/button/up">
-							<span class="icon is-large">
-								<img src="{{ url_for('static', filename='icons/chevron-up.svg') }}" />
-							</span>
-						</a>
-						<a class="button is-dark quarter q-right" href="/button/right">
-							<span class="icon is-large">
-								<img src="{{ url_for('static', filename='icons/chevron-right.svg') }}" />
-							</span>
-						</a>
-						<a class="button is-dark quarter q-down" href="/button/down">
-							<span class="icon is-large">
-								<img src="{{ url_for('static', filename='icons/chevron-down.svg') }}" />
-							</span>
-						</a>
-						<a class="button is-black circle-center" href="/button/ok">
-							OK
-						</a>
-						<!-- < -->
-					</div>
-				</div>
-				<!-- <div class="is-flex">
-					<div class="column has-text-centered">
-						<a class="button is-link" href="/auth">
-							Auth
-						</a>
-					</div>
-				</div> -->
-				<div class="is-flex is-align-content-center">
-					<div class="column mute-button">
-						<p class="control">
-							<a class="button is-dark is-large is-rounded" href="/mute">
-								<span class="icon is-large">
-									<img src="{{ url_for('static', filename='icons/volume-mute.svg') }}" />
-								</span>
-							</a>
-						</p>
-					</div>
-					<div class="column volume-buttons ml-4">
-						<div class="tabs is-toggle is-toggle-rounded is-fullwidth">
-							<ul>
-								<li class="no-outline">
-									<a class="button is-dark is-large is" href="/volDown">
-										<span class="icon is-large">
-											<img src="{{ url_for('static', filename='icons/volume-low.svg') }}" />
-										</span>
-									</a>
-								</li>
-								<li class="no-outline">
-									<a class="button is-dark is-large" href="/volUp">
-										<span class="icon is-large">
-											<img src="{{ url_for('static', filename='icons/volume-high.svg') }}" />
-										</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</body>
+<body>
+    <div class="container">
+        <div class="main is-flex is-flex-direction-column">
+            <div class="is-flex mb-6 is-justify-content-space-between is-align-items-center">
+                <a class=" button is-danger is-rounded is-large" href="/poweroff">
+                    <span class="icon is-large">
+                        <i class="fa-solid fa-power-off"></i>
+                    </span>
+                </a>
+                <div class="px-4 is-flex-grow-1 has-text-right">
+                    <select id="appSelect"
+                        class="py-4 px-4 is-size-6 has-background-dark has-text-white app-select">
+                        <option value="">Application</option>
+                        {%for i, app in apps%}
+                        <option value="{{ app.id }}">{{ app.name }}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+            </div>
+            <div class="is-flex is-justify-content-space-around mb-5">
+                <div class="buttons">
+                    {%for i, source in sources%}
+                    <a class="button is-dark" href="/hdmi/{{i}}">{{source}}</a>
+                    {%endfor%}
+                </div>
+            </div>
+            <div
+                class="is-flex is-flex-grow-1 px-3 is-justify-content-center is-align-items-center is-relative mb-3">
+                <div class="home">
+                    <a class="button is-dark is-rounded is-large" href="/home">
+                        <span class="icon is-large">
+                            <i class="fa-solid fa-house"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="back">
+                    <a class="button is-dark is-rounded is-large" href="/back">
+                        <span class="icon is-large">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="settings">
+                    <a class="button is-dark is-rounded is-large" href="/settings">
+                        <span class="icon is-large">
+                            <i class="fa-solid fa-gear"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="guide">
+                    <a class="button is-dark is-rounded is-large" href="/guide">
+                        <span class="icon is-large">
+                            <i class="fa-solid fa-bars"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="main-circle p-2">
+                    <a class="button is-dark quarter q-left" href="/button/left">
+                        <span class="icon is-large">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </span>
+                    </a>
+                    <a class="button is-dark quarter q-up" href="/button/up">
+                        <span class="icon is-large">
+                            <i class="fa-solid fa-angle-up"></i>
+                        </span>
+                    </a>
+                    <a class="button is-dark quarter q-right" href="/button/right">
+                        <span class="icon is-large">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </span>
+                    </a>
+                    <a class="button is-dark quarter q-down" href="/button/down">
+                        <span class="icon is-large">
+                            <i class="fa-solid fa-angle-down"></i>
+                        </span>
+                    </a>
+                    <a class="button is-black circle-center is-size-3" href="/button/ok">
+                        OK
+                    </a>
+                    <!-- < -->
+                </div>
+            </div>
+            <div class="is-flex is-align-content-center">
+                <div class="column mute-button">
+                    <p class="control">
+                        <a class="button is-dark is-large is-rounded" href="/mute">
+                            <span class="icon is-large">
+                                <i class="fa-solid fa-volume-xmark"></i>
+                            </span>
+                        </a>
+                    </p>
+                </div>
+                <div class="column volume-buttons ml-4">
+                    <div class="tabs is-toggle is-toggle-rounded is-fullwidth">
+                        <ul>
+                            <li class="no-outline">
+                                <a class="button is-dark is-large is" href="/volDown">
+                                    <span class="icon is-large">
+                                        <i class="fa-solid fa-volume-low"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="no-outline">
+                                <a class="button is-dark is-large" href="/volUp">
+                                    <span class="icon is-large">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="is-flex is-align-content-center">
+                <div class="column volume-buttons ml-4">
+                    <div class="tabs is-toggle is-toggle-rounded is-fullwidth">
+                        <ul>
+                            <li class="no-outline">
+                                <a class="button is-dark is-large" href="/button/channel_down">
+                                    <span class="icon is-large">
+                                        CH <i class="ml-2 fa-solid fa-minus"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="no-outline">
+                                <a class="button is-dark is-large" href="/button/channel_up">
+                                    <span class="icon is-large">
+                                        CH <i class="ml-2 fa-solid fa-plus"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="is-flex is-align-content-center">
+                <div class="column has-text-centered">
+                    <p class="control">
+                        <a class="button is-dark is-large is-rounded" href="/rewind">
+                            <span class="icon is-large">
+                                <i class="fa-solid fa-backward"></i>
+                            </span>
+                        </a>
+                    </p>
+                </div>
+                <div class="column has-text-centered">
+                    <p class="control">
+                        <a class="button is-dark is-large is-rounded" href="/pause">
+                            <span class="icon is-large">
+                                <i class="fa-solid fa-pause"></i>
+                            </span>
+                        </a>
+                    </p>
+                </div>
+                <div class="column has-text-centered">
+                    <p class="control">
+                        <a class="button is-dark is-large is-rounded" href="/play">
+                            <span class="icon is-large">
+                                <i class="fa-solid fa-play"></i>
+                            </span>
+                        </a>
+                    </p>
+                </div>
+                <div class="column has-text-centered">
+                    <p class="control">
+                        <a class="button is-dark is-large is-rounded" href="/fastforward">
+                            <span class="icon is-large">
+                                <i class="fa-solid fa-forward"></i>
+                            </span>
+                        </a>
+                    </p>
+                </div>
+            </div>
 
-	<script>
-		const links = document.querySelectorAll('a');
+            {% include 'modal.html' %}
 
-		links.forEach(el => el.addEventListener('click', json_link, false));
+            <div class="is-hidden status p-4 mx-2">
+                There was a problem reaching the server.
+            </div>
+        </div>
+    </div>
 
-		function json_link(e) {
-			e.preventDefault();
-			const options = {
-				method: 'GET',
-			}
+</body>
 
-			fetch(this.href, options)
-				.then(res => res.json())
-				.then(res => console.log(res));
-			return false;
-		};
-	</script>
+<script>
+    window.addEventListener('load', () => setInterval(checkStatus, 5000));
+
+    function checkStatus() {
+        const url = '/status';
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2000);
+
+        fetch(url, { signal: controller.signal }).then(response => {
+            document.querySelector('.status').classList.add('is-hidden');
+            clearTimeout(timeoutId);
+        }).catch(err => {
+            document.querySelector('.status').classList.remove('is-hidden');
+        });
+    };
+
+    const links = document.querySelectorAll('a:not(.no-link)');
+
+    links.forEach(el => el.addEventListener('click', jsonLink, false));
+
+    function jsonLink(e) {
+        e.preventDefault();
+        const options = {
+            method: 'GET',
+        };
+
+        fetch(this.href, options)
+            .then(res => res.json())
+            .then(res => console.log(res));
+        return false;
+    };
+
+    document.querySelector('#appSelect').addEventListener("change", function (e) {
+        const url = '/app/' + e.target.value;
+        fetch(url, { method: 'GET' })
+            .then(res => res.json())
+            .then(res => console.log(res));
+        return false;
+    });
+</script>
 
 </html>

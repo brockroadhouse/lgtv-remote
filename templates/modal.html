@@ -1,0 +1,86 @@
+<div class="is-flex is-align-content-center">
+    <div class="column has-text-centered">
+        <div class="tabs is-toggle is-toggle-rounded is-fullwidth">
+            <ul>
+                <li class="no-outline">
+                    <a id="mouse-control" class="button is-dark is-large no-link">
+                        <span class="icon is-large">
+                            <i class="fa-solid fa-arrow-pointer"></i>
+                        </span>
+                    </a>
+                </li>
+                <li class="no-outline">
+                    <a id="keyboard-control" class="button is-dark is-large" href="/move/4/4">
+                        <span class="icon is-large">
+                            <i class="fa-solid fa-keyboard"></i>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="modal is-absolute">
+    <button id="modal-close" class="modal-close is-large is-absolute" aria-label="close"></button>
+    <div class="modal-background"></div>
+    <div class="is-relative border">
+        <div class="is-width-full modal-content has-text-centered">
+            <div class="is-size-2">Drag to control</div>
+            <div id="joyDiv" style="width:150px;height:150px;margin-bottom:20px;"></div>
+            <div id="mouse-pos"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/joy.min.js"></script>
+
+<script>
+    let intervalId;
+    let joy;
+    document.querySelector('#mouse-control')
+        .addEventListener("click", e => {
+            toggleModal();
+        });
+
+    document.querySelector('#modal-close')
+        .addEventListener("click", e => {
+            toggleModal();
+            clearInterval(intervalId);
+            joy = null;
+        });
+
+    function toggleModal() {
+        document.querySelector('.modal')
+            .classList
+            .toggle('is-active');
+    }
+
+    let [lastX, lastY] = [0, 0];
+    document.querySelector(".modal-background").addEventListener('touchmove', function (e) {
+        let currentX = event.touches[0].clientX;
+        if (Math.abs(currentX - lastX) > 10) {
+            const urlX = currentX > lastX ? 'move/right' : 'move/left';
+            fetch(urlX, { method: "get" })
+                .then(res => res.json())
+                .then(res => console.log(res));
+            document.getElementById("mouse-pos").innerHTML = "Moved X";
+        } else {
+            document.getElementById("mouse-pos").innerHTML = "Not X";
+        }
+
+        if (Math.abs(currentY - lastY) > 10) {
+            let currentY = event.touches[0].clientY;
+            const urlY = currentY > lastY ? 'move/up' : 'move/down';
+            fetch(urlY, { method: "get" })
+                .then(res => res.json())
+                .then(res => console.log(res));
+            document.getElementById("mouse-pos").innerHTML = "Moved Y";
+        }
+
+        [lastX, lastY] = [currentX, currentY];
+    });
+    document.querySelector(".modal-background").addEventListener('click', function (e) {
+        console.log(e);
+    });
+
+</script>
