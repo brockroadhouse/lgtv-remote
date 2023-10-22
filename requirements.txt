@@ -1,4 +1,4 @@
 Flask==2.0.1
-pywebostv==0.8.*
+pywebostv==0.8.9
 python-dotenv
 wakeonlan

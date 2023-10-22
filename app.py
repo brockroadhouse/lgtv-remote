@@ -180,7 +180,7 @@ def get_source_control(client=False):
 
 def get_client():
     store = session.get('store', {})
-    client = WebOSClient(TV_IP)
+    client = WebOSClient(TV_IP, True)
     client.connect()
     for status in client.register(store):
         print(status)
